@@ -1,6 +1,6 @@
 # FuzzyWood Nvim
 
-## Best Nvim there is
+## Best Nvim there is (propably)
 
 TO-DO:
 
