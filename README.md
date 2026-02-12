@@ -20,7 +20,7 @@ TO-DO:
 | "<a...z>  | paste                      |
 | p         | paste                      |
 | CTRL-B    | Move up half a page        |
-| CTRL-B    | Move up half a page        |
+| CTRL-U    | Move down half a page        |
 | SPACE-u   | UI quickoptions            |
 | SPACE-c-f | format code                |
 
