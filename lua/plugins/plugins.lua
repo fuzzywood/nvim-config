@@ -207,6 +207,10 @@ return {
         -- Your existing options...
         open_files_on_enter = true,
         enable_diagnostics = true,
+        bind_to_cwd = true, -- This is the magic setting
+        follow_current_file = {
+          enabled = false,
+        },
         filesystem = {
           filtered_items = {
             hide_dotfiles = false, -- ← This enables hidden files
