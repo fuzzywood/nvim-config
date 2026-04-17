@@ -22,6 +22,7 @@ local function telescope_find_files_from_neotree()
   })
 end
 vim.keymap.set("n", "<leader>fF", telescope_find_files_from_neotree, { desc = "Telescope find files in NeoTree root" })
+vim.keymap.set("n", "<leader>at", ":Copilot toggle<CR>", { desc = "Toggle Copilot suggestion" })
 -- Flash
 --del({ "n", "x", "o" }, "f")
 --del({ "n", "x", "o" }, "F")
