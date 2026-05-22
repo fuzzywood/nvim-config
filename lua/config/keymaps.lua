@@ -27,33 +27,36 @@ vim.keymap.set("n", "<leader>at", ":Copilot toggle<CR>", { desc = "Toggle Copilo
 --del({ "n", "x", "o" }, "f")
 --del({ "n", "x", "o" }, "F")
 
-vim.keymap.set("n", "<leader>fj", function()
+vim.keymap.set("n", "<leader>fH", function()
   local builtin = require("telescope.builtin")
   local actions = require("telescope.actions")
   local action_state = require("telescope.actions.state")
 
   builtin.find_files({
     prompt_title = "Search Home Directories",
-    cwd = vim.env.HOME,
-    find_command = { "fd", "--type", "d", "--strip-cwd-prefix", "--hidden", "--exclude", ".git" },
-    attach_mappings = function(prompt_bufnr, _)
+    cwd = vim.uv.os_homedir(),
+    -- Use fd or find to search ONLY for directories
+    find_command = { "fd", "--type", "d", "--hidden", "--exclude", ".git" },
+
+    -- Attach a custom action when you hit Enter
+    attach_mappings = function(prompt_bufnr, map)
       actions.select_default:replace(function()
+        -- 1. Get the directory you selected
         local selection = action_state.get_selected_entry()
         actions.close(prompt_bufnr)
 
-        -- 1. Path construction
-        local new_path = vim.env.HOME .. "/" .. selection[1]
+        if selection then
+          -- 2. Construct the full absolute path
+          local target_dir = vim.uv.os_homedir() .. "/" .. selection[1]
 
-        -- 2. Change global directory
-        vim.api.nvim_set_current_dir(new_path)
+          -- 3. Change Neovim's working directory
+          vim.cmd("cd " .. vim.fn.fnameescape(target_dir))
 
-        -- 3. Reset Neo-tree to the new CWD using the command-line API
-        -- This is the most stable way to force a refresh to the new folder
-        vim.cmd("Neotree filesystem reveal dir=" .. new_path)
-
-        print("Switched to: " .. new_path)
+          -- 4. Inform you via a clean notify message
+          vim.notify("Changed working directory to: " .. target_dir)
+        end
       end)
       return true
     end,
   })
-end, { desc = "Search Home and Sync Neo-tree" })
+end, { desc = "Search directories from Home and cd" })
