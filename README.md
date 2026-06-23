@@ -43,6 +43,7 @@ TO-DO:
 | {          | Jump to Next blank line                       |
 | }          | Jump to Previous blank line                   |
 | {          | Jump to next blank line                       |
+| ^          | jump to the first character in line           |
 
 ## Searching
 
